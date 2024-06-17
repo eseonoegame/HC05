@@ -1,0 +1,54 @@
+# HOW TO PAIR 2 HC-05 MODULES
+How to par 2 HC-05 modules with arduino Uno and send date between them.
+
+## Table of contents
+- [HOW TO PAIR 2 HC-05 MODULES](#how-to-pair-2-hc-05-modules)
+  - [Table of contents](#table-of-contents)
+  - [Pair 2 HC-05 modules](#pair-2-hc-05-modules)
+
+## Pair 2 HC-05 modules
+1. Connect the HC-05 module to the arduino Uno with the following connections:
+   - VCC -> 5V
+   - GND -> GND
+   - TXD -> RXD
+   - RXD -> TXD
+   - KEY -> 3V
+   
+2. Create a SoftwareSerial BTSerial(10, 11)
+   
+3. Send following instruction in this communication serial :
+   ``` cpp
+    BTSerial.println("AT+ORGL");   // Reset factory
+	BTSerial.println("AT+RMAAD");  // Supprimer les adresses enregistrées
+	BTSerial.println("AT+ROLE=1"); // Mode Master
+	BTSerial.println("AT+RESET");  // Reset le module
+	BTSerial.println("AT+CMODE=0"); // Mode de connexion fixe
+	BTSerial.println("AT+BIND=98D3,61,F5CEFF"); // Adresse correcte du module Slave
+	BTSerial.println("AT+INIT"); // Initialiser le SPP (profil série)
+	```
+
+## Send data between 2 HC-05 modules
+1. Turn off the alimentation of the arduino card
+2. Disconnect the key pins of the HC-05 modules
+3. Turn on the alimentation of the arduino card
+4. You can now send data between the 2 modules
+
+``` cpp
+#include <SoftwareSerial.h>
+void loop()
+{
+	// Si message dans canal "BT" alors le print dans canal "console"
+	if(BTSerial.available() > 0)
+	{
+		Serial.write(BTSerial.read());
+        // message = BTSerial.read();
+	}
+
+	// si message dans canal "console" alors on le print dans le canal "BT"
+	if(Serial.available() > 0)
+	{
+		BTSerial.write(Serial.read());
+	}
+}
+```
+

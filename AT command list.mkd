@@ -1,0 +1,40 @@
+Le module Bluetooth HC-05 peut recevoir une variété de commandes AT pour configurer et contrôler ses fonctionnalités. Voici une liste des commandes AT les plus couramment utilisées avec le HC-05 :
+
+### Commandes de Base
+- **AT** : Vérifie si le module répond. Réponse: `OK`
+- **AT+RESET** : Redémarre le module.
+- **AT+VERSION?** : Demande la version du firmware. Réponse: `OKxxxx` (où `xxxx` est la version)
+- **AT+ORGL** : Rétablit les paramètres d'usine.
+- **AT+ADDR?** : Demande l'adresse Bluetooth du module.
+- **AT+NAME=name** : Change le nom du module. `name` est le nouveau nom.
+- **AT+PSWD=password** : Change le code PIN de jumelage. `password` est le nouveau code PIN.
+- **AT+ROLE=role** : Définit le rôle du module (1=Master, 0=Slave).
+
+### Commandes de Configuration
+- **AT+UART=baudrate,stopbits,parity** : Configure les paramètres UART (baudrate, nombre de bits de stop, parité). Ex: `AT+UART=9600,0,0`
+- **AT+CMODE=mode** : Définit le mode de connexion (0=fixed address, 1=any address).
+- **AT+BIND=address** : Définit l'adresse de liaison pour une connexion fixe. Ex: `AT+BIND=0011:22:33:44:55:66`
+- **AT+POLAR=polarity** : Définit la polarité des indicateurs LED.
+- **AT+PIO=number,state** : Définit l'état des broches PIO (0 ou 1).
+
+### Commandes Avancées
+- **AT+INQ** : Lance une requête d'inquiry pour trouver les appareils Bluetooth à proximité.
+- **AT+CLASS=class** : Définit la classe de l'appareil. `class` est un nombre hexadécimal.
+- **AT+IAC=iaciac** : Définit l'IAC (Inquiry Access Code). `iaciac` est un nombre hexadécimal.
+- **AT+IMME=0/1** : Définit le mode de connexion immédiate (0=automatique, 1=manuelle).
+- **AT+INIT** : Initialise le profil SPP (Serial Port Profile).
+- **AT+INQM=mode,max_inq_result,timeout** : Configure les paramètres d'inquiry. Ex: `AT+INQM=1,9,48`
+- **AT+PSWD?** : Demande le code PIN actuel.
+- **AT+RMAAD** : Supprime tous les appareils jumelés.
+
+### Commandes de Connexion
+- **AT+PAIR=address,timeout** : Associe le module à un autre appareil. `address` est l'adresse de l'appareil, `timeout` est en secondes.
+- **AT+LINK=address** : Connecte le module à un appareil spécifique.
+- **AT+DISCON** : Déconnecte une connexion active.
+- **AT+STATE?** : Demande l'état actuel de la connexion. Réponse: `+STATE:xxxx` (où `xxxx` est l'état)
+
+### Commandes de Contrôle des LEDs
+- **AT+LED?** : Demande l'état des LEDs.
+- **AT+LED=state** : Définit l'état des LEDs (0=éteint, 1=allumé).
+
+Ces commandes permettent de configurer et de contrôler un module HC-05 pour divers scénarios de communication Bluetooth. Assurez-vous d'envoyer ces commandes en mode commande AT (généralement lorsque le module n'est pas connecté à un autre appareil Bluetooth).
